@@ -87,7 +87,7 @@ var Router = React.createClass({
 			),
 			React.createElement("img", {
 				className: "page--logo",
-				src: "images/mblogo.png",
+				src: "images/mblogo.gif",
 			}),
 			page
 		);

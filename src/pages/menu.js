@@ -54,9 +54,9 @@ var Menu = React.createClass({
 			}, "Score tracker"),
 			React.createElement("a", {
 				className: "btn btn-info btn-block btn-lg menu--button",
-				href: "https://boardgamegeek.com/blogpost/55856",
+				href: "http://asmor.com/scripts/mb/",
 				target: "_blank",
-			}, "Feedback & Updates")
+			}, "The original Millennium Device")
 		);
 	},
 });
