@@ -14,6 +14,7 @@ var RouteStore = require("./stores/routeStore.js");
 var PlayerStore = require("./stores/playerStore.js");
 var SetStore = require("./stores/setStore.js");
 var ChoiceStore = require("./stores/choiceStore.js");
+var VirtualDeckStore = require("./stores/VirtualDeckStore.js");
 
 var Menu = require("./pages/menu.js");
 var PlayerSetup = require("./pages/playerSetup.js");
@@ -21,6 +22,7 @@ var Presets = require("./pages/presets.js");
 var Randomizer = require("./pages/randomizer.js");
 var ScoreTracker = require("./pages/scoreTracker.js");
 var SelectProducts = require("./pages/selectProducts.js");
+var VirtualStoreDeck = require("./pages/virtualStoreDeck.js");
 
 var Router = React.createClass({
 	displayName: "router",
@@ -30,6 +32,7 @@ var Router = React.createClass({
 		playerStore: React.PropTypes.instanceOf(PlayerStore).isRequired,
 		setStore: React.PropTypes.instanceOf(SetStore).isRequired,
 		choiceStores: React.PropTypes.object,
+		virtualDeckStore: React.PropTypes.instanceOf(VirtualDeckStore).isRequired
 	},
 	getInitialState: function () {
 		return { location: this.props.routeStore.location };
@@ -48,7 +51,7 @@ var Router = React.createClass({
 	},
 	render: function () {
 		var page;
-		var { dispatcher, playerStore, setStore, choiceStores } = this.props;
+		var { dispatcher, playerStore, setStore, choiceStores, virtualDeckStore } = this.props;
 
 		switch ( this.state.location ) {
 			case "randomizer":
@@ -65,6 +68,9 @@ var Router = React.createClass({
 				break;
 			case "score-tracker":
 				page = React.createElement(ScoreTracker, { dispatcher, playerStore });
+				break;
+			case "virtual-store":
+				page = React.createElement(VirtualStoreDeck, { dispatcher, virtualDeckStore });
 				break;
 			default:
 				page = React.createElement(Menu, { dispatcher });
@@ -99,14 +105,17 @@ var setStore = new SetStore({
 });
 var playerStore = new PlayerStore(dispatcher);
 var choiceStores = {
-	Expansion: new ChoiceStore({ dispatcher, count: 5 }),
-	Premium: new ChoiceStore({ dispatcher, count: 4 }),
-	Master: new ChoiceStore({ dispatcher, count: 3 }),
+	Expansion: new ChoiceStore({ dispatcher, count: 6 }),
+	Premium: new ChoiceStore({ dispatcher, count: 5 }),
+	Master: new ChoiceStore({ dispatcher, count: 4 }),
 	Bronze: new ChoiceStore({ dispatcher, count: 2 }),
 	Silver: new ChoiceStore({ dispatcher, count: 2 }),
 	Gold: new ChoiceStore({ dispatcher, count: 1 }),
 };
-
+var virtualDeckStore = new VirtualDeckStore({
+	sets: require("./data/sets.json"),
+	choiceStores
+});
 
 var rootElement = React.createElement(Router, {
 	dispatcher,
@@ -114,6 +123,7 @@ var rootElement = React.createElement(Router, {
 	playerStore,
 	setStore,
 	choiceStores,
+	virtualDeckStore
 });
 
 window.addEventListener("load", function () {

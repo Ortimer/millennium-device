@@ -27,10 +27,9 @@ var SelectProducts = React.createClass({
 		// Clone state
 		var products = JSON.parse(JSON.stringify( this.state.products ));
 
-		products.some(function (product) {
+		products.forEach(product => {
 			if ( product.pid === args.pid ) {
 				product.active = args.state;
-				return true;
 			}
 		});
 

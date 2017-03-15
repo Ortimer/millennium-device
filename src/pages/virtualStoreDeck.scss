@@ -1,0 +1,28 @@
+.virtual-store {
+	.virtual-store--draw {
+		margin: auto;
+		max-width: 100%;
+		width: 510px;
+		padding: 20px;
+
+		.virtual-store--list {
+			list-style-type: disc;
+
+			.virtual-store--currentIndex {
+				list-style-type: none;
+				font-weight: bold;
+				font-size: 1.5rem;
+				text-align: center;
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	.virtual-store--header {
+		text-align: center;
+	}
+
+	.virtual-store--button {
+		margin: 10px;
+	}
+}
