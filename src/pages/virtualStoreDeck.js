@@ -12,12 +12,14 @@ var VirtualStoreDeck = React.createClass({
 	},
 	getInitialState: function () {
 		return {
-			currentDeck: [],
-			currentIndex: 0
+			currentDeck: this.props.virtualDeckStore.currentSlice,
+			currentIndex: this.props.virtualDeckStore.currentIndex
 		};
 	},
 	resetDeck: function() {
-		this.setState({ currentDeck: [], currentIndex: 0});
+		this.props.virtualDeckStore.currentSlice = [];
+		this.props.virtualDeckStore.currentIndex = 0;
+		this.setState({ currentDeck: this.props.virtualDeckStore.currentSlice, currentIndex: this.props.virtualDeckStore.currentIndex});
 	},
 	pollCards: function(amount) {
 		var virtualDeckStore = this.props.virtualDeckStore;
@@ -46,7 +48,9 @@ var VirtualStoreDeck = React.createClass({
 			compactSlice.push(currentSet + " x " + count);
 		}
 
-		this.setState({ currentDeck: compactSlice, currentIndex: currentIndex});
+    this.props.virtualDeckStore.currentSlice = compactSlice;
+		this.props.virtualDeckStore.currentIndex = currentIndex;
+		this.setState({ currentDeck: this.props.virtualDeckStore.currentSlice, currentIndex: this.props.virtualDeckStore.currentIndex});
 	},
 	render: function () {
 		var { dispatcher, virtualDeckStore } = this.props;

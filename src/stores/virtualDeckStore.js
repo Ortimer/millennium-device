@@ -11,6 +11,8 @@ function VirtualDeckStore(args) {
 	self.setCounts = {};
 	self.choiceStores = choiceStores;
 	self.currentDeck = [];
+	self.currentSlice = [];
+	self.currentIndex = 0;
 
 	sets.forEach(set => {
 		if (set.count) {
